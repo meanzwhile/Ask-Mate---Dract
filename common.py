@@ -6,13 +6,11 @@ def get_table_from_file(file_name):
         lines = file.readlines()
     table = [element.replace("\n", "").split(",") for element in lines]
     decoded_table = encode_decode_b64(table, "decode")
-    print(decoded_table)
     return decoded_table
 
 
 def write_table_to_file(table, file_name):
     encoded_table = encode_decode_b64(table, "encode")
-    print(encoded_table)
     with open(file_name, "w") as file:
         for record in table:
             row = ','.join(record)
