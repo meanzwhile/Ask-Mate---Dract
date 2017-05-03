@@ -21,7 +21,7 @@
             <p> {{ question[5] }} </p>
             <a href="/update/{{ id }}" class="btn btn-success" style="color:white">Update</a>
         <div class="row" style=" margin:0 auto; margin-top: 20px; margin-bottom: 20px;">
-            <form method="POST" action="submit_answer/{{ id }}">
+            <form method="POST" action="/submit-answer/{{ question_id }}">
                 <div class="form-group">
                     <label>Answer</label>
                     <textarea class="form-control" rows="3" name="answer"></textarea>
