@@ -1,3 +1,5 @@
+from base64 import encode, decode
+
 def get_table_from_file(file_name="stories.csv"):
     with open(file_name, "r") as file:
         lines = file.readlines()
