@@ -69,7 +69,13 @@ def update(id):
 
 
 @app.route("/question/<question_id>/delete", methods=["POST"])
-def delete_question():
+def delete_question(question_id):
+    question_table = common.get_table_from_file("data/question.csv")
+    ID_INDEX = 0
+    for element in question_table:
+        if element[ID_INDEX] == question_id:
+            question_table.remove(element)
+    common.write_table_to_file(question_table, "data/question.csv")
     return redirect(url_for("index"))
 
 

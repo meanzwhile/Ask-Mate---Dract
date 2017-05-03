@@ -65,6 +65,9 @@
                         <td>{{ value[2] }}</td>
                         <td>{{ value[3] }}</td>
                         <td>{{ value[1] }}</td>
+                        <td><form method="POST" action="/question/{{ value[0] }}/delete">
+                            <button type="submit" name="delete-question" class="btn">Delete</button>
+                            </form></td>
                     </tr>
                 {% endfor %}
     </tbody>
