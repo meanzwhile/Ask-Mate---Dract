@@ -31,7 +31,6 @@ def submit_question():
     return redirect(url_for("index"))
 
 
-
 @app.route("/answer/<question_id>")
 def answer(question_id):
     QUESTION_ID = 3
@@ -47,15 +46,20 @@ def answer(question_id):
     return render_template("answer.html", answers=answers_table, question=actual_question)
 
 
-@app.route("/answer/<question_id>", methods=["POST"])
+@app.route("/submit-answer/<question_id>", methods=["POST"])
 def submit_answer(question_id):
-    answers = common.get_table_from_file("data/question.csv")
+    answers = common.get_table_from_file("data/answer.csv")
     new_answer = []
+    timestamp = str(int(time()))
     new_answer.append(common.ID_generator(answers))
-    new_answer.append()
-
+    new_answer.append(timestamp)
+    new_answer.append("0")
+    new_answer.append(question_id)
+    new_answer.append(request.form["answer"])
+    new_answer.append("IMAGE")
     answers.append(new_answer)
-    return render_template("answer.html")
+    common.write_table_to_file(answers, "data/answer.csv")
+    return redirect(url_for("answer"))
 
 
 @app.route("/update/<id>", methods=["GET", "POST"])
