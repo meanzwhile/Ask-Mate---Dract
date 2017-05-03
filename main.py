@@ -7,16 +7,34 @@ app = Flask(__name__)
 @app.route("/")
 @app.route("/index")
 def index():
-    # data_table = common.get_table_from_file("data/question.csv")
+    table = common.get_table_from_file()
+    return render_template("index.html", question_list=table)
+
+
+@app.route("/", methods=["POST"])
+@app.route("/index", methods=["POST"])
+def submit_question():
     return render_template("index.html")
 
 
-@app.route("/answer/<id>", methods=["GET", "POST"])
+@app.route("/answer/<id>")
 def answer(id):
-    return render_template("answer.html",
-                           question_title="Which color is my fav?",
-                           message="Blue",
-                           answer_list=["Its my good answer! asdasf sdfsdnsdfk  dksdf  klsd  jklsd jklsd éljkas  éksd géklsgéklsd géks éksdgéksgdklsd fgékfsdfgdf gsdj iljsdf kljsdfkljsdklfjsdf kl", "500", "2014.04.03"])
+    QUESTION_ID = 3
+    question_table = common.get_table_from_file()
+    for element in question_table:
+        if element[0] == id:
+            actual_question = element
+    table = common.get_table_from_file("data/answer.csv")
+    answers_table = []
+    for element in table:
+        if element[QUESTION_ID] == id:
+            answers_table.append(element)
+    return render_template("answer.html", answers=answers_table, question=actual_question)
+
+
+@app.route("/answer/<id>", methods=["POST"])
+def submit_answer(id):
+    return render_template("answer.html")
 
 
 @app.route("/update/<id>", methods=["GET", "POST"])

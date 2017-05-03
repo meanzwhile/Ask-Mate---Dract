@@ -17,11 +17,11 @@
     <body>
     <div class="container">
         <div class="row" style="width:80%; margin:0 auto; margin-top: 20px; margin-bottom: 20px;">
-            <h2> {{ question_title }} </h2>
-            <p> {{ message }} </p>
+            <h2> {{ question[4] }} </h2>
+            <p> {{ question[5] }} </p>
             <a href="/update/{{ id }}" class="btn btn-success" style="color:white">Update</a>
         <div class="row" style=" margin:0 auto; margin-top: 20px; margin-bottom: 20px;">
-            <form method="POST" action="">
+            <form method="POST" action="submit_answer">
                 <div class="form-group">
                     <label>Answer</label>
                     <textarea class="form-control" rows="3" name="answer"></textarea>
@@ -45,16 +45,16 @@
                     <tr>
                 </thead>
                 <tbody>
-
+                    {% for value in answers %}
                     <tr>
-                        <td><blockquote>{{ answer_list[0] }}</blockquote></td>
-                        <td style="min-width: 100px;">{{ answer_list[1] }}
+                        <td><blockquote>{{ value[4] }}</blockquote></td>
+                        <td style="min-width: 100px;">{{ value[2] }}
                             <span class="glyphicon glyphicon-arrow-up" aria-hidden="true" style="color:green;"/>
                             <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" style="color:red;"/>
                         </td>
-                        <td style="min-width: 100px;">{{ answer_list[2] }}</td>
+                        <td style="min-width: 100px;">{{ value[1] }}</td>
                     </tr>
-
+                    {% endfor %}
     </tbody>
 </table>
         </div>

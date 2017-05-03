@@ -56,13 +56,15 @@
                     <tr>
                 </thead>
                 <tbody>
-                {% for value in data_list %}
+                {% for value in question_list %}
                     <tr>
+                        <td>
+                            <a href="answer/{{ value[0] }}" style="color:white">{{ value[4] }}</a>
+                        </td>
                         <td>{{ value[0] }}</td>
-                        <td>{{ value[0] }}</td>
-                        <td>{{ value[0] }}</td>
-                        <td>{{ value[0] }}</td>
-                        <td>{{ value[0] }}</td>
+                        <td>{{ value[2] }}</td>
+                        <td>{{ value[3] }}</td>
+                        <td>{{ value[1] }}</td>
                     </tr>
                 {% endfor %}
     </tbody>
