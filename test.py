@@ -7,6 +7,10 @@ def test3():
     pass
 
 
+def lala():
+    pass
+    
+
 def test2():
     pass
 
