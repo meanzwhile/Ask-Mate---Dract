@@ -27,7 +27,8 @@ def submit_question():
     submit_data_list.append(request.form["question_title"])
     submit_data_list.append(request.form["message"])
     submit_data_list.append(IMG_PATH)
-    print(submit_data_list)
+    table.append(submit_data_list)
+    common.write_table_to_file(table, "data/question.csv")
     return redirect(url_for("index"))
 
 
@@ -55,6 +56,11 @@ def submit_answer(id):
 @app.route("/update/<id>", methods=["GET", "POST"])
 def update(id):
     return render_template("update.html")
+
+
+@app.route("/question/<question_id>/delete", methods=["POST"])
+def delete_question():
+    return redirect(url_for("index"))
 
 
 if __name__ == '__main__':
