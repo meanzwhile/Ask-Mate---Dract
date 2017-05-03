@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, url_for
 import common
-
+from time import time
 app = Flask(__name__)
 
 
@@ -11,10 +11,25 @@ def index():
     return render_template("index.html", question_list=table)
 
 
-@app.route("/", methods=["POST"])
-@app.route("/index", methods=["POST"])
+@app.route("/submit-question", methods=["POST"])
 def submit_question():
-    return render_template("index.html")
+    table = common.get_table_from_file("data/question.csv")
+    submit_data_list = []
+    VIEW_NUMBER = "0"
+    VOTE_NUMBER = "0"
+    IMG_PATH = ""
+    ID = common.ID_generator(table)
+    submit_data_list.append(ID)
+    timestamp = str(int(time()))
+    submit_data_list.append(timestamp)
+    submit_data_list.append(VIEW_NUMBER)
+    submit_data_list.append(VOTE_NUMBER)
+    submit_data_list.append(request.form["question_title"])
+    submit_data_list.append(request.form["message"])
+    submit_data_list.append(IMG_PATH)
+    print(submit_data_list)
+    return redirect(url_for("index"))
+
 
 
 @app.route("/answer/<question_id>")
