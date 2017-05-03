@@ -36,6 +36,7 @@ def submit_question():
 def answer(question_id):
     QUESTION_ID = 3
     question_table = common.get_table_from_file("data/question.csv")
+    actual_question = ""
     for element in question_table:
         if element[0] == question_id:
             actual_question = element
@@ -44,7 +45,7 @@ def answer(question_id):
     for element in table:
         if element[QUESTION_ID] == question_id:
             answers_table.append(element)
-    return render_template("answer.html", answers=answers_table, question=actual_question)
+    return render_template("answer.html", answers=answers_table, question=actual_question, question_id=question_id)
 
 
 @app.route("/submit-answer/<question_id>", methods=["POST"])
@@ -60,8 +61,7 @@ def submit_answer(question_id):
     new_answer.append("IMAGE")
     answers.append(new_answer)
     common.write_table_to_file(answers, "data/answer.csv")
-    return redirect(url_for("answer"))
-
+    return redirect(url_for('answer', question_id=question_id))
 
 @app.route("/update/<id>", methods=["GET", "POST"])
 def update(id):
