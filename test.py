@@ -11,5 +11,13 @@ def test2():
     pass
 
 
+def dog():
+    pass
+
+
 def test1():
+    pass
+
+
+def nice_day():
     pass
