@@ -1,0 +1,16 @@
+p {
+    color: #ffffff;
+}
+
+.starter-template {
+  padding:40px 15px;
+  text-align:center;
+}
+
+.table > tbody > tr > td {
+  text-align: left;
+}
+
+.error {
+  color: #ff0000;
+}
