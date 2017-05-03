@@ -8,7 +8,10 @@ def test3():
 
 
 def lala():
-    pass
+    """sdojhdfjgkhdfgfdkjghfdgjdfh"
+    asdkjasfkljsdlkfjsdklfj"""
+    var = 1
+    yield 1
     
 
 def test2():
