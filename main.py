@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route("/")
 @app.route("/index")
 def index():
-    table = common.get_table_from_file()
+    table = common.get_table_from_file("data/question.csv")
     return render_template("index.html", question_list=table)
 
 
@@ -17,23 +17,29 @@ def submit_question():
     return render_template("index.html")
 
 
-@app.route("/answer/<id>")
-def answer(id):
+@app.route("/answer/<question_id>")
+def answer(question_id):
     QUESTION_ID = 3
-    question_table = common.get_table_from_file()
+    question_table = common.get_table_from_file("data/question.csv")
     for element in question_table:
-        if element[0] == id:
+        if element[0] == question_id:
             actual_question = element
     table = common.get_table_from_file("data/answer.csv")
     answers_table = []
     for element in table:
-        if element[QUESTION_ID] == id:
+        if element[QUESTION_ID] == question_id:
             answers_table.append(element)
     return render_template("answer.html", answers=answers_table, question=actual_question)
 
 
-@app.route("/answer/<id>", methods=["POST"])
-def submit_answer(id):
+@app.route("/answer/<question_id>", methods=["POST"])
+def submit_answer(question_id):
+    answers = common.get_table_from_file("data/question.csv")
+    new_answer = []
+    new_answer.append(common.ID_generator(answers))
+    new_answer.append()
+
+    answers.append(new_answer)
     return render_template("answer.html")
 
 
