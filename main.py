@@ -7,8 +7,15 @@ app = Flask(__name__)
 @app.route("/")
 @app.route("/index")
 def index():
+    answers = common.get_table_from_file("data/answer.csv")
     table = common.get_table_from_file("data/question.csv")
-    return render_template("index.html", question_list=table)
+    answer_counter = {}
+
+    for element in table:
+        answer_counter[element[0]] = 0
+    for element in answers:
+        answer_counter[element[3]] += 1
+    return render_template("index.html", question_list=table, answer_counter=answer_counter)
 
 
 @app.route("/submit-question", methods=["POST"])
