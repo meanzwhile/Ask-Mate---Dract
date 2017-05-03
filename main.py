@@ -63,13 +63,30 @@ def submit_answer(question_id):
     common.write_table_to_file(answers, "data/answer.csv")
     return redirect(url_for('answer', question_id=question_id))
 
-@app.route("/update/<id>", methods=["GET", "POST"])
-def update(id):
-    return render_template("update.html")
+
+@app.route("/update/<question_id>", methods=["GET"])
+def update_page(question_id):
+    ID_INDEX = 0
+    question_table = common.get_table_from_file("data/question.csv")
+    data_to_fill = []
+    for element in question_table:
+        if element[ID_INDEX] == question_id:
+            data_to_fill.append(element)
+    return render_template("update.html", datas=data_to_fill)
+
+
+@app.route("/submit-update/<question_id>", methods=["POST"])
+def update_data(question_id):
+    # unfinished! should add new list to file
+    question_table = common.get_table_from_file("data/question.csv")
+    new_data = []
+    new_data.append(request.form[''])
+    return redirect(url_for('answer', question_id=question_id))
 
 
 @app.route("/question/<question_id>/delete", methods=["POST"])
 def delete_question(question_id):
+    # we should delete the answers in the file to!!!
     question_table = common.get_table_from_file("data/question.csv")
     ID_INDEX = 0
     for element in question_table:

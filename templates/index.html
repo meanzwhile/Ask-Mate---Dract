@@ -20,11 +20,11 @@
             <form method="POST" action="submit-question">
                 <div class="form-group">
                     <label>Question title:</label>
-                    <input type="text" class="form-control" placeholder="Text input" name="question_title">
+                    <input type="text" class="form-control" placeholder="Text input" name="question_title" required>
                 </div>
                 <div class="form-group">
                     <label>Message</label>
-                    <textarea class="form-control" rows="3" name="message"></textarea>
+                    <textarea class="form-control" rows="3" name="message" required></textarea>
                 </div>
                 <button type="submit" name="create" value="Create" class="btn">Submit</button>
         </form>

@@ -17,14 +17,17 @@
     <body>
     <div class="container">
         <div class="row" style="width:80%; margin:0 auto; margin-top: 20px; margin-bottom: 20px;">
-            <form method="POST" action="">
+            {% for data in datas %}
+            <form method="POST" action="/submit-update/{{ data[0] }}">
+
                 <div class="form-group">
                     <label>Question title:</label>
-                    <input type="text" class="form-control" placeholder="Text input" name="question_title">
+                    <input type="text" class="form-control" placeholder="Text input" name="updated-question_title" value="{{ data[4] }}" required>
                 </div>
                 <div class="form-group">
                     <label>Message</label>
-                    <textarea class="form-control" rows="3" name="message"></textarea>
+                    <textarea class="form-control" rows="3" name="updated-message" required>{{ data[5] }}</textarea>
                 </div>
                 <button type="submit" name="update" value="Update" class="btn">Update</button>
+                {% endfor %}
         </form>

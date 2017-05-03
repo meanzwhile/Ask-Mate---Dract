@@ -19,12 +19,14 @@
         <div class="row" style="width:80%; margin:0 auto; margin-top: 20px; margin-bottom: 20px;">
             <h2> {{ question[4] }} </h2>
             <p> {{ question[5] }} </p>
-            <a href="/update/{{ id }}" class="btn btn-success" style="color:white">Update</a>
+            <form method="GET" action="/update/{{ question_id }}">
+                            <button type="submit" name="update-question" class="btn btn-success">Update</button>
+                            </form>
         <div class="row" style=" margin:0 auto; margin-top: 20px; margin-bottom: 20px;">
             <form method="POST" action="/submit-answer/{{ question_id }}">
                 <div class="form-group">
                     <label>Answer</label>
-                    <textarea class="form-control" rows="3" name="answer"></textarea>
+                    <textarea class="form-control" rows="3" name="answer" required></textarea>
                 </div>
                 <button type="submit" name="create" value="Create" class="btn btn-success">Submit</button>
             </form>
