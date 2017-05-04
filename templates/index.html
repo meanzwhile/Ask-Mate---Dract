@@ -62,7 +62,7 @@
                 {% for value in question_list %}
                     <tr>
                         <td>
-                            <a href="/answer/{{ value[0] }}" style="color:white">{{ value[4] }}</a>
+                            <a href="/view/{{ value[0] }}" style="color:white">{{ value[4] }}</a>
                         </td>
                         <td>{{ value[7] }}</td>
                         <td>{{ value[2] }}</td>
@@ -76,7 +76,7 @@
                         </td>
                         <td>{{ value[1] }}</td>
                         <td><a href="/question/{{ value[0] }}/delete">
-                            <button type="button" name="delete-question" class="btn btn-info">Delete</button></a>
+                            <button type="button" name="delete-question" class="btn btn-danger">Delete</button></a>
                             </td>
                     </tr>
                 {% endfor %}

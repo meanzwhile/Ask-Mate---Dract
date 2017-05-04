@@ -50,9 +50,6 @@ def answer(question_id):
     actual_question = ""
     for element in question_table:
         if element[0] == question_id:
-            views = int(element[2]) + 1
-            question_table[question_table.index(element)][2] = str(views)
-            common.write_table_to_file(question_table, "data/question.csv")
             actual_question = element
     table = common.get_table_from_file("data/answer.csv")
     answers_table = []
@@ -60,6 +57,17 @@ def answer(question_id):
         if element[QUESTION_ID] == question_id:
             answers_table.append(element)
     return render_template("answer.html", answers=answers_table, question=actual_question, question_id=question_id)
+
+
+@app.route("/view/<question_id>")
+def view_func(question_id):
+    question_table = common.get_table_from_file("data/question.csv")
+    for element in question_table:
+        if element[0] == question_id:
+            views = int(element[2]) + 1
+            question_table[question_table.index(element)][2] = str(views)
+            common.write_table_to_file(question_table, "data/question.csv")
+    return redirect(url_for('answer', question_id=question_id))
 
 
 @app.route("/submit-answer/<question_id>", methods=["POST"])

@@ -28,6 +28,7 @@
                     <label>Message</label>
                     <textarea class="form-control" rows="3" name="updated-message" required>{{ data[5] }}</textarea>
                 </div>
-                <button type="submit" name="update" value="Update" class="btn">Update</button>
+                <button type="submit" name="update" value="Update" class="btn btn-success">Update</button>
+                <a href="/answer/{{ data[0] }}" class="btn btn-danger">Back</a>
                 {% endfor %}
         </form>
