@@ -26,7 +26,7 @@
             <form method="POST" action="/submit-answer/{{ question_id }}">
                 <div class="form-group">
                     <label>Answer</label>
-                    <textarea class="form-control" rows="3" name="answer" required></textarea>
+                    <textarea class="form-control" rows="3" name="answer" pattern=".{0}|.{10,}" title="Answer should be 10 characters long minimum!" required></textarea>
                 </div>
                 <button type="submit" name="create" value="Create" class="btn btn-success">Submit</button>
                 <a href="/index" class="btn btn-danger">Back</a>
