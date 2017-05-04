@@ -83,8 +83,9 @@ def sort_table(table_input, col, way):
 
 
 def sort_table_answer(table_input, col, way):
-    for element in table_input:
-        table_input[table_input.index(element)][int(col)] = int(element[int(col)])
+    if int(col) in [2]:
+        for element in table_input:
+            table_input[table_input.index(element)][int(col)] = int(element[int(col)])
     table_input.sort(key=itemgetter(int(col)))
     if way == "desc":
         table_input.reverse()

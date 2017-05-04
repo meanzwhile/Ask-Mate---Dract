@@ -43,9 +43,8 @@ def submit_question():
     common.write_table_to_file(table, "data/question.csv")
     return redirect(url_for("index"))
 
-
-@app.route("/answer/<question_id>/<sorting_col>/<way>")
 @app.route("/answer/<question_id>")
+@app.route("/answer/<question_id>/<sorting_col>/<way>")
 def answer(question_id, sorting_col=2, way="desc"):
     QUESTION_ID = 3
     question_table = common.get_table_from_file("data/question.csv")
@@ -138,11 +137,15 @@ def delete_question(question_id):
     return redirect(url_for("index"))
 
 
-@app.route("/answer/<answer_id>/delete")
-def delete_answer(answer_id):
-    question_table = common.get_table_from_file("data/question.csv")
+@app.route("/<question_id>/answer/<answer_id>/delete")
+def delete_answer(answer_id, question_id):
+    answer_table = common.get_table_from_file("data/answer.csv")
+    for element in answer_table:
+        if element[0] == answer_id:
+            answer_table.remove(element)
+    common.write_table_to_file(answer_table, "data/answer.csv")
     return redirect(url_for('answer', question_id=question_id))
-
+    # return render_template("answer.html",  question_id=question_id)
 
 
 @app.route("/answer/<question_id>/<element_id>/vote_up")
