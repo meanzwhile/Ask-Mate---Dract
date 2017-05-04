@@ -97,7 +97,7 @@ def update_data(question_id):
     return redirect(url_for('answer', question_id=question_id))
 
 
-@app.route("/question/<question_id>/delete", methods=["POST"])
+@app.route("/question/<question_id>/delete")
 def delete_question(question_id):
     # we should delete the answers in the file to!!!
     question_table = common.get_table_from_file("data/question.csv")
