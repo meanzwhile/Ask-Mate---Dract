@@ -51,8 +51,12 @@
                     <tr>
                         <td><blockquote>{{ value[4] }}</blockquote></td>
                         <td style="min-width: 100px;">{{ value[2] }}
-                            <span class="glyphicon glyphicon-arrow-up" aria-hidden="true" style="color:green;"/>
-                            <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" style="color:red;"/>
+                            <a href="/answer/{{ question[0] }}/{{ value[0] }}/vote_up">
+                                <span class="glyphicon glyphicon-arrow-up" aria-hidden="true" style="color:green;"/>
+                            </a>
+                            <a href="/answer/{{ question[0] }}/{{ value[0] }}/vote_down">
+                                <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" style="color:red;"/>
+                            </a>
                         </td>
                         <td style="min-width: 100px;">{{ value[1] }}</td>
                     </tr>

@@ -115,5 +115,28 @@ def delete_question(question_id):
     return redirect(url_for("index"))
 
 
+@app.route("/answer/<question_id>/<element_id>/vote_up")
+def vote_up_answer(question_id, element_id):
+    common.general_vote_up(element_id, "data/answer.csv", 2)
+    return redirect(url_for("answer", question_id=question_id))
+
+
+@app.route("/answer/<question_id>/<element_id>/vote_down")
+def vote_down_answer(question_id, element_id):
+    common.general_vote_down(element_id, "data/answer.csv", 2)
+    return redirect(url_for("answer", question_id=question_id))
+
+
+@app.route("/index/vote_up/<element_id>")
+def vote_up(element_id):
+    common.general_vote_up(element_id, "data/question.csv", 3)
+    return redirect(url_for("index"))
+
+
+@app.route("/index/vote_down/<element_id>")
+def vote_down(element_id):
+    common.general_vote_down(element_id, "data/question.csv", 3)
+    return redirect(url_for("index"))
+
 if __name__ == '__main__':
     app.run(debug=True)

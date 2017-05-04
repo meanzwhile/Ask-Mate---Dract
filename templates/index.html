@@ -66,7 +66,14 @@
                         </td>
                         <td>{{ value[7] }}</td>
                         <td>{{ value[2] }}</td>
-                        <td>{{ value[3] }}</td>
+                        <td>{{ value[3] }}
+                            <a href="/index/vote_up/{{ value[0] }}">
+                                <span class="glyphicon glyphicon-arrow-up" aria-hidden="true" style="color:green;"/>
+                            </a>
+                            <a href="/index/vote_down/{{ value[0] }}">
+                                <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" style="color:red;"/>
+                            </a>
+                        </td>
                         <td>{{ value[1] }}</td>
                         <td><a href="/question/{{ value[0] }}/delete">
                             <button type="button" name="delete-question" class="btn">Delete</button></a>
