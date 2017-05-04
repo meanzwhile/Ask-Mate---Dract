@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, redirect, url_for
 import common
 from time import time
+import datetime
 app = Flask(__name__)
 
 
@@ -31,7 +32,7 @@ def submit_question():
     IMG_PATH = ""
     ID = common.ID_generator(table)
     submit_data_list.append(ID)
-    timestamp = str(int(time()))
+    timestamp = datetime.datetime.fromtimestamp(time()).strftime('%Y-%m-%d %H:%M:%S')
     submit_data_list.append(timestamp)
     submit_data_list.append(VIEW_NUMBER)
     submit_data_list.append(VOTE_NUMBER)
@@ -74,7 +75,7 @@ def view_func(question_id):
 def submit_answer(question_id):
     answers = common.get_table_from_file("data/answer.csv")
     new_answer = []
-    timestamp = str(int(time()))
+    timestamp = datetime.datetime.fromtimestamp(time()).strftime('%Y-%m-%d %H:%M:%S')
     new_answer.append(common.ID_generator(answers))
     new_answer.append(timestamp)
     new_answer.append("0")
