@@ -73,6 +73,18 @@ def general_vote_down(element_id, database, vote_index):
 
 
 def sort_table(table_input, col, way):
+    if int(col) in [7, 2, 3]:
+        for element in table_input:
+            table_input[table_input.index(element)][int(col)] = int(element[int(col)])
+    table_input.sort(key=itemgetter(int(col)))
+    if way == "desc":
+        table_input.reverse()
+    return table_input
+
+
+def sort_table_answer(table_input, col, way):
+    for element in table_input:
+        table_input[table_input.index(element)][int(col)] = int(element[int(col)])
     table_input.sort(key=itemgetter(int(col)))
     if way == "desc":
         table_input.reverse()

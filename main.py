@@ -9,7 +9,7 @@ app = Flask(__name__)
 @app.route("/index")
 @app.route("/index/")
 @app.route("/index/<sorting_col>/<way>")
-def index(sorting_col=None, way=None):
+def index(sorting_col=1, way="desc"):
     answers = common.get_table_from_file("data/answer.csv")
     table = common.get_table_from_file("data/question.csv")
     answer_counter = {}
@@ -44,8 +44,9 @@ def submit_question():
     return redirect(url_for("index"))
 
 
+@app.route("/answer/<question_id>/<sorting_col>/<way>")
 @app.route("/answer/<question_id>")
-def answer(question_id):
+def answer(question_id, sorting_col=2, way="desc"):
     QUESTION_ID = 3
     question_table = common.get_table_from_file("data/question.csv")
     actual_question = ""
@@ -57,6 +58,7 @@ def answer(question_id):
     for element in table:
         if element[QUESTION_ID] == question_id:
             answers_table.append(element)
+    answers_table = common.sort_table_answer(answers_table, sorting_col, way)
     return render_template("answer.html", answers=answers_table, question=actual_question, question_id=question_id)
 
 
@@ -100,10 +102,22 @@ def update_page(question_id):
 
 @app.route("/submit-update/<question_id>", methods=["POST"])
 def update_data(question_id):
-    # unfinished! should add new list to file
     question_table = common.get_table_from_file("data/question.csv")
-    new_data = []
-    new_data.append(request.form[''])
+    updated_question = []
+    for element in question_table:
+        if element[0] == question_id:
+            updated_question.append(element)
+            question_table.remove(element)
+    flatten_updated_question = []
+    for element in updated_question:
+        for item in element:
+            flatten_updated_question.append(item)
+    flatten_updated_question.pop(4)
+    flatten_updated_question.pop(4)
+    flatten_updated_question.insert(4, request.form['updated-question_title'])
+    flatten_updated_question.insert(5, request.form['updated-message'])
+    question_table.append(flatten_updated_question)
+    common.write_table_to_file(question_table, "data/question.csv")
     return redirect(url_for('answer', question_id=question_id))
 
 
