@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route("/index")
 @app.route("/index/")
 @app.route("/index/<sorting_col>/<way>")
-def index(sorting_col=None, way=None):
+def index(sorting_col=1, way="desc"):
     answers = common.get_table_from_file("data/answer.csv")
     table = common.get_table_from_file("data/question.csv")
     answer_counter = {}
@@ -43,8 +43,9 @@ def submit_question():
     return redirect(url_for("index"))
 
 
+@app.route("/answer/<question_id>/<sorting_col>/<way>")
 @app.route("/answer/<question_id>")
-def answer(question_id):
+def answer(question_id, sorting_col=2, way="desc"):
     QUESTION_ID = 3
     question_table = common.get_table_from_file("data/question.csv")
     actual_question = ""
@@ -56,6 +57,7 @@ def answer(question_id):
     for element in table:
         if element[QUESTION_ID] == question_id:
             answers_table.append(element)
+    answers_table = common.sort_table_answer(answers_table, sorting_col, way)
     return render_template("answer.html", answers=answers_table, question=actual_question, question_id=question_id)
 
 
