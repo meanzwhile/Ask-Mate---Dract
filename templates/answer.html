@@ -16,12 +16,12 @@
     </head>
     <body>
     <div class="container">
-        <a href="/index"><button href="/index" type="submit" name="back" value="Back" class="btn btn-success">Back</button></a>
         <div class="row" style="width:80%; margin:0 auto; margin-top: 20px; margin-bottom: 20px;">
             <h2> {{ question[4] }} </h2>
             <p> {{ question[5] }} </p>
             <form method="GET" action="/update/{{ question_id }}">
                             <button type="submit" name="update-question" class="btn btn-success">Update</button>
+                            <a href="/index"><button href="/index" type="submit" name="back" value="Back" class="btn btn-success">Back</button></a>
                             </form>
         <div class="row" style=" margin:0 auto; margin-top: 20px; margin-bottom: 20px;">
             <form method="POST" action="/submit-answer/{{ question_id }}">
