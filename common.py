@@ -1,4 +1,5 @@
 from base64 import b64decode, b64encode
+from operator import itemgetter
 
 
 def get_table_from_file(file_name):
@@ -45,3 +46,30 @@ def encode_decode_b64(table, method):
                 if idx == 6:
                     element[6] = b64encode(bytes(element[6], "utf-8")).decode("utf-8")
     return table
+
+
+def general_vote_up(element_id, database, vote_index):
+    table = get_table_from_file(database)
+    for element in table:
+        if element[0] == element_id:
+            element[vote_index] = int(element[vote_index])
+            (element[vote_index]) += 1
+            element[vote_index] = str(element[vote_index])
+    write_table_to_file(table, database)
+
+
+def general_vote_down(element_id, database, vote_index):
+    table = get_table_from_file(database)
+    for element in table:
+        if element[0] == element_id:
+            element[vote_index] = int(element[vote_index])
+            (element[vote_index]) -= 1
+            element[vote_index] = str(element[vote_index])
+    write_table_to_file(table, database)
+
+
+def sort_table(table_input, col, way):
+    table_input.sort(key=itemgetter(int(col)))
+    if way == "desc":
+        table_input.reverse()
+    return table_input

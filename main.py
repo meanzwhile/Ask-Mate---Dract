@@ -6,7 +6,9 @@ app = Flask(__name__)
 
 @app.route("/")
 @app.route("/index")
-def index():
+@app.route("/index/")
+@app.route("/index/<sorting_col>/<way>")
+def index(sorting_col=None, way=None):
     answers = common.get_table_from_file("data/answer.csv")
     table = common.get_table_from_file("data/question.csv")
     answer_counter = {}
@@ -15,12 +17,8 @@ def index():
         for value in answers:
             if element[0] == value[3]:
                 table[table.index(element)][7] += 1
-
-
-    """for element in table:
-        answer_counter[element[0]] = 0
-    for element in answers:
-        answer_counter[element[3]] += 1"""
+    if sorting_col is not None:
+        table = common.sort_table(table, sorting_col, way)
     return render_template("index.html", question_list=table)
 
 
@@ -59,6 +57,17 @@ def answer(question_id):
         if element[QUESTION_ID] == question_id:
             answers_table.append(element)
     return render_template("answer.html", answers=answers_table, question=actual_question, question_id=question_id)
+
+
+@app.route("/view/<question_id>")
+def view_func(question_id):
+    question_table = common.get_table_from_file("data/question.csv")
+    for element in question_table:
+        if element[0] == question_id:
+            views = int(element[2]) + 1
+            question_table[question_table.index(element)][2] = str(views)
+            common.write_table_to_file(question_table, "data/question.csv")
+    return redirect(url_for('answer', question_id=question_id))
 
 
 @app.route("/submit-answer/<question_id>", methods=["POST"])
@@ -114,6 +123,29 @@ def delete_question(question_id):
     common.write_table_to_file(temp_table, "data/answer.csv")
     return redirect(url_for("index"))
 
+
+@app.route("/answer/<question_id>/<element_id>/vote_up")
+def vote_up_answer(question_id, element_id):
+    common.general_vote_up(element_id, "data/answer.csv", 2)
+    return redirect(url_for("answer", question_id=question_id))
+
+
+@app.route("/answer/<question_id>/<element_id>/vote_down")
+def vote_down_answer(question_id, element_id):
+    common.general_vote_down(element_id, "data/answer.csv", 2)
+    return redirect(url_for("answer", question_id=question_id))
+
+
+@app.route("/index/vote_up/<element_id>")
+def vote_up(element_id):
+    common.general_vote_up(element_id, "data/question.csv", 3)
+    return redirect(url_for("index"))
+
+
+@app.route("/index/vote_down/<element_id>")
+def vote_down(element_id):
+    common.general_vote_down(element_id, "data/question.csv", 3)
+    return redirect(url_for("index"))
 
 if __name__ == '__main__':
     app.run(debug=True)

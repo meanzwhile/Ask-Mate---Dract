@@ -20,7 +20,7 @@
             <h2> {{ question[4] }} </h2>
             <p> {{ question[5] }} </p>
             <a href="/update/{{ question[0] }}">
-                            <button type="button" name="update-question" class="btn btn-success">Update</button>
+                            <button type="button" name="update-question" class="btn btn-info">Update</button>
                             </a>
         <div class="row" style=" margin:0 auto; margin-top: 20px; margin-bottom: 20px;">
             <form method="POST" action="/submit-answer/{{ question_id }}">
@@ -29,6 +29,7 @@
                     <textarea class="form-control" rows="3" name="answer" required></textarea>
                 </div>
                 <button type="submit" name="create" value="Create" class="btn btn-success">Submit</button>
+                <a href="/index" class="btn btn-danger">Back</a>
             </form>
         </div>
         <div class="row">
@@ -51,8 +52,12 @@
                     <tr>
                         <td><blockquote>{{ value[4] }}</blockquote></td>
                         <td style="min-width: 100px;">{{ value[2] }}
-                            <span class="glyphicon glyphicon-arrow-up" aria-hidden="true" style="color:green;"/>
-                            <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" style="color:red;"/>
+                            <a href="/answer/{{ question[0] }}/{{ value[0] }}/vote_up">
+                                <span class="glyphicon glyphicon-arrow-up" aria-hidden="true" style="color:#5CB85C;"/>
+                            </a>
+                            <a href="/answer/{{ question[0] }}/{{ value[0] }}/vote_down">
+                                <span class="glyphicon glyphicon-arrow-down" aria-hidden="true" style="color:#D9534F;"/>
+                            </a>
                         </td>
                         <td style="min-width: 100px;">{{ value[1] }}</td>
                     </tr>

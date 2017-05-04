@@ -274,6 +274,8 @@ th {
   font-style: normal;
   font-weight: normal;
   line-height: 1;
+  text-decoration: none;
+  color: #ffffff;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

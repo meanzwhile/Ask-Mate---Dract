@@ -1,0 +1,32 @@
+validáció kliens Tomi
+
+http://stackoverflow.com/questions/10281962/is-there-a-minlength-validation-attribute-in-html5
+
+
+validáció szerver Tomi
+
+
+answer number in index.html Done
+
+
+voting question Peti
+
+
+voting answer Peti
+
+
+image handling
+
+
+sorting Metrioon
+
+
+edit question done
+
+delete question done
+
+
+timestamp Metrioon
+
+
+view Tomi

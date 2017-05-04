@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Super Sprinter 3000 - Hadroon</title>
+        <title>Ask Mate - update your question</title>
         <link rel="stylesheet" href="/static/css/bootstrap.css?v={{ range(1, 51) | random }}">
 
         <!-- Own main css -->
@@ -28,6 +28,7 @@
                     <label>Message</label>
                     <textarea class="form-control" rows="3" name="updated-message" required>{{ data[5] }}</textarea>
                 </div>
-                <button type="submit" name="update" value="Update" class="btn">Update</button>
+                <button type="submit" name="update" value="Update" class="btn btn-success">Update</button>
+                <a href="/answer/{{ data[0] }}" class="btn btn-danger">Back</a>
                 {% endfor %}
         </form>
