@@ -6,7 +6,9 @@ app = Flask(__name__)
 
 @app.route("/")
 @app.route("/index")
-def index():
+@app.route("/index/")
+@app.route("/index/<sorting_col>/<way>")
+def index(sorting_col=None, way=None):
     answers = common.get_table_from_file("data/answer.csv")
     table = common.get_table_from_file("data/question.csv")
     answer_counter = {}
@@ -15,12 +17,8 @@ def index():
         for value in answers:
             if element[0] == value[3]:
                 table[table.index(element)][7] += 1
-
-
-    """for element in table:
-        answer_counter[element[0]] = 0
-    for element in answers:
-        answer_counter[element[3]] += 1"""
+    if sorting_col is not None:
+        table = common.sort_table(table, sorting_col, way)
     return render_template("index.html", question_list=table)
 
 
@@ -52,6 +50,9 @@ def answer(question_id):
     actual_question = ""
     for element in question_table:
         if element[0] == question_id:
+            views = int(element[2]) + 1
+            question_table[question_table.index(element)][2] = str(views)
+            common.write_table_to_file(question_table, "data/question.csv")
             actual_question = element
     table = common.get_table_from_file("data/answer.csv")
     answers_table = []

@@ -14,3 +14,21 @@ p {
 .error {
   color: #ff0000;
 }
+
+a {
+  text-decoration: none !important;
+  color: #ffffff !important;
+}
+
+.glyphicon {
+  -webkit-font-smoothing:antialiased;
+  display:inline-block;
+  font-family:"Glyphicons Halflings";
+  font-style:normal;
+  font-weight:normal;
+  line-height:1;
+  position:relative;
+  top:1px;
+  text-decoration: none;
+  color: #ffffff;
+}

@@ -1,4 +1,5 @@
 from base64 import b64decode, b64encode
+from operator import itemgetter
 
 
 def get_table_from_file(file_name):
@@ -45,3 +46,10 @@ def encode_decode_b64(table, method):
                 if idx == 6:
                     element[6] = b64encode(bytes(element[6], "utf-8")).decode("utf-8")
     return table
+
+
+def sort_table(table_input, col, way):
+    table_input.sort(key=itemgetter(int(col)))
+    if way == "desc":
+        table_input.reverse()
+    return table_input

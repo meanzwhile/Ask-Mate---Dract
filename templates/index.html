@@ -17,7 +17,7 @@
     <body>
     <div class="container">
         <div class="row" style="width:80%; margin:0 auto; margin-top: 20px; margin-bottom: 20px;">
-            <form method="POST" action="submit-question">
+            <form method="POST" action="/submit-question">
                 <div class="form-group">
                     <label>Question title:</label>
                     <input type="text" class="form-control" placeholder="Text input" name="question_title" required>
@@ -34,24 +34,24 @@
                 <thead>
                     <tr>
                         <th>Question title 
-                            <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"/>
-                            <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"/>
+                            <a href="/index/4/asc" class="glyphicon glyphicon-arrow-up" aria-hidden="true"/></a>
+                            <a href="/index/4/desc" class="glyphicon glyphicon-arrow-down" aria-hidden="true"/></a>
                         </th>
                         <th>Answers
-                            <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"/>
-                            <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"/>
+                            <a href="/index/7/asc" class="glyphicon glyphicon-arrow-up" aria-hidden="true"/></a>
+                            <a href="/index/7/desc" class="glyphicon glyphicon-arrow-down" aria-hidden="true"/></a>
                         </th>
                         <th>Views
-                            <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"/>
-                            <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"/>
+                            <a href="/index/2/asc" class="glyphicon glyphicon-arrow-up" aria-hidden="true"/></a>
+                            <a href="/index/2/desc" class="glyphicon glyphicon-arrow-down" aria-hidden="true"/></a>
                         </th>
                         <th>Votes
-                            <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"/>
-                            <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"/>
+                            <a href="/index/3/desc" class="glyphicon glyphicon-arrow-up" aria-hidden="true"/></a>
+                            <a href="/index/3/asc" class="glyphicon glyphicon-arrow-down" aria-hidden="true"/></a>
                         </th>
                         <th>Created
-                            <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"/>
-                            <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"/>
+                            <a href="/index/1/asc" class="glyphicon glyphicon-arrow-up" aria-hidden="true"/></a>
+                            <a href="/index/1/desc" class="glyphicon glyphicon-arrow-down" aria-hidden="true"/></a>
                         </th>
                         <th>
                             Delete
@@ -62,7 +62,7 @@
                 {% for value in question_list %}
                     <tr>
                         <td>
-                            <a href="answer/{{ value[0] }}" style="color:white">{{ value[4] }}</a>
+                            <a href="/answer/{{ value[0] }}" style="color:white">{{ value[4] }}</a>
                         </td>
                         <td>{{ value[7] }}</td>
                         <td>{{ value[2] }}</td>
