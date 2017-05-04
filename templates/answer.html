@@ -60,6 +60,9 @@
                             </a>
                         </td>
                         <td style="min-width: 100px;">{{ value[1] }}</td>
+                        <td style="min-width: 100px;"><a href="/answer/{{ value[0] }}/delete">
+                            <button type="button" name="delete-question" class="btn btn-danger">Delete</button></a>
+                            </td>
                     </tr>
                     {% endfor %}
     </tbody>

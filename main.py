@@ -122,7 +122,6 @@ def update_data(question_id):
 
 @app.route("/question/<question_id>/delete")
 def delete_question(question_id):
-    # we should delete the answers in the file to!!!
     question_table = common.get_table_from_file("data/question.csv")
     answer_table = common.get_table_from_file("data/answer.csv")
     ID_INDEX = 0
@@ -136,6 +135,13 @@ def delete_question(question_id):
     common.write_table_to_file(question_table, "data/question.csv")
     common.write_table_to_file(temp_table, "data/answer.csv")
     return redirect(url_for("index"))
+
+
+@app.route("/answer/<answer_id>/delete")
+def delete_answer(answer_id):
+    question_table = common.get_table_from_file("data/question.csv")
+    return redirect(url_for('answer', question_id=question_id))
+
 
 
 @app.route("/answer/<question_id>/<element_id>/vote_up")
