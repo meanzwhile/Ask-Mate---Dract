@@ -106,11 +106,12 @@ def delete_question(question_id):
     for element in question_table:
         if element[ID_INDEX] == question_id:
             question_table.remove(element)
+    temp_table = []
     for question_id_old in answer_table:
-        if question_id_old[3] == question_id:
-            answer_table.remove(question_id_old)
+        if question_id_old[3] != question_id:
+            temp_table.append(question_id_old)
     common.write_table_to_file(question_table, "data/question.csv")
-    common.write_table_to_file(answer_table, "data/answer.csv")
+    common.write_table_to_file(temp_table, "data/answer.csv")
     return redirect(url_for("index"))
 
 
