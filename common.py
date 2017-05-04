@@ -1,5 +1,7 @@
 from base64 import b64decode, b64encode
 from operator import itemgetter
+import datetime
+import time
 
 
 def get_table_from_file(file_name):
@@ -7,11 +9,13 @@ def get_table_from_file(file_name):
         lines = file.readlines()
     table = [element.replace("\n", "").split(",") for element in lines]
     decoded_table = encode_decode_b64(table, "decode")
+    decoded_table = timestamp_converter(decoded_table, "timestamp_to_datetime")
     return decoded_table
 
 
 def write_table_to_file(table, file_name):
     encoded_table = encode_decode_b64(table, "encode")
+    encoded_table = timestamp_converter(encoded_table, "datetime_to_timestamp")
     with open(file_name, "w") as file:
         for record in table:
             row = ','.join(record)
@@ -85,3 +89,14 @@ def sort_table_answer(table_input, col, way):
     if way == "desc":
         table_input.reverse()
     return table_input
+
+
+def timestamp_converter(table, method):
+    if method == "timestamp_to_datetime":
+        for element in table:
+            element[1] = datetime.datetime.fromtimestamp(int(element[1])).strftime('%Y-%m-%d %H:%M:%S')
+    if method == "datetime_to_timestamp":
+        for element in table:
+            element[1] = str(time.mktime(datetime.datetime.strptime(element[1], '%Y-%m-%d %H:%M:%S').timetuple()))
+            element[1] = element[1][0:-2]
+    return table
