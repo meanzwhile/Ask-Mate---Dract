@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, abort
 import common
 from time import time
 import datetime
@@ -25,6 +25,8 @@ def index(sorting_col=1, way="desc"):
 
 @app.route("/submit-question", methods=["POST"])
 def submit_question():
+    if "SLY" in request.form["question_title"]:
+        return render_template("sly.html")
     table = common.get_table_from_file("data/question.csv")
     submit_data_list = []
     VIEW_NUMBER = "0"
@@ -42,6 +44,7 @@ def submit_question():
     table.append(submit_data_list)
     common.write_table_to_file(table, "data/question.csv")
     return redirect(url_for("index"))
+
 
 @app.route("/answer/<question_id>")
 @app.route("/answer/<question_id>/<sorting_col>/<way>")
@@ -170,6 +173,11 @@ def vote_up(element_id):
 def vote_down(element_id):
     common.general_vote_down(element_id, "data/question.csv", 3)
     return redirect(url_for("index"))
+
+
+@app.errorhandler(404)
+def error_hadler(e):
+    return render_template("handler.html")
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -36,7 +36,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Answers</th>
+                        <th class="col-md-6">Answers</th>
                         <th>Votes
                             <a href="/answer/{{ question[0] }}/2/asc" class="glyphicon glyphicon-arrow-up" aria-hidden="true"/></a>
                             <a href="/answer/{{ question[0] }}/2/desc" class="glyphicon glyphicon-arrow-down" aria-hidden="true"/></a>
@@ -51,7 +51,7 @@
                 <tbody>
                     {% for value in answers %}
                     <tr>
-                        <td><blockquote>{{ value[4] }}</blockquote></td>
+                        <td class="col-md-6"><blockquote>{{ value[4] }}</blockquote></td>
                         <td style="min-width: 100px;">{{ value[2] }}
                             <a href="/answer/{{ question[0] }}/{{ value[0] }}/vote_up">
                                 <span class="glyphicon glyphicon-arrow-up" aria-hidden="true" style="color:#5CB85C;"/>
