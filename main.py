@@ -10,12 +10,18 @@ def index():
     answers = common.get_table_from_file("data/answer.csv")
     table = common.get_table_from_file("data/question.csv")
     answer_counter = {}
-
     for element in table:
+        table[table.index(element)].append(0)
+        for value in answers:
+            if element[0] == value[3]:
+                table[table.index(element)][7] += 1
+
+
+    """for element in table:
         answer_counter[element[0]] = 0
     for element in answers:
-        answer_counter[element[3]] += 1
-    return render_template("index.html", question_list=table, answer_counter=answer_counter)
+        answer_counter[element[3]] += 1"""
+    return render_template("index.html", question_list=table)
 
 
 @app.route("/submit-question", methods=["POST"])
@@ -95,11 +101,16 @@ def update_data(question_id):
 def delete_question(question_id):
     # we should delete the answers in the file to!!!
     question_table = common.get_table_from_file("data/question.csv")
+    answer_table = common.get_table_from_file("data/answer.csv")
     ID_INDEX = 0
     for element in question_table:
         if element[ID_INDEX] == question_id:
             question_table.remove(element)
+    for question_id_old in answer_table:
+        if question_id_old[3] == question_id:
+            answer_table.remove(question_id_old)
     common.write_table_to_file(question_table, "data/question.csv")
+    common.write_table_to_file(answer_table, "data/answer.csv")
     return redirect(url_for("index"))
 
 
