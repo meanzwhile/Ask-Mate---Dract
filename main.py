@@ -40,6 +40,7 @@ def submit_question():
     submit_data_list = []
     VIEW_NUMBER = "0"
     VOTE_NUMBER = "0"
+    filename = ""
     file = request.files['file']
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
