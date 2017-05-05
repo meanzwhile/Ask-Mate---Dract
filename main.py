@@ -173,7 +173,6 @@ def delete_answer(answer_id, question_id):
             answer_table.remove(element)
     common.write_table_to_file(answer_table, "data/answer.csv")
     return redirect(url_for('answer', question_id=question_id))
-    # return render_template("answer.html",  question_id=question_id)
 
 
 @app.route("/answer/<question_id>/<element_id>/vote_up")
@@ -203,6 +202,7 @@ def vote_down(element_id):
 @app.errorhandler(404)
 def error_hadler(e):
     return render_template("handler.html")
+
 
 if __name__ == '__main__':
     app.run(debug=True)
