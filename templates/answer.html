@@ -21,9 +21,9 @@
             <h2> {{ question[4] }} </h2>
             <p> {{ question[5] }} </p>
             </div>
-
+                    {% if question[6] %}
             <div class="col-md-6"><img style="border: 10px solid #ffffff;" src="/static/uploads/{{ question[6] }}" /></div>
-
+                    {% endif %}
         </div>
         <div class="row" style="width:80%; margin:0 auto; margin-top: 20px; margin-bottom: 20px;">
             <a href="/update/{{ question[0] }}">
