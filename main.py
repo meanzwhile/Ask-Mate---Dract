@@ -1,8 +1,17 @@
+import os
 from flask import Flask, request, render_template, redirect, url_for, abort
-import common
 from time import time
 import datetime
+from werkzeug.utils import secure_filename
+from os.path import join, dirname, realpath
+import common
+
+
+UPLOAD_FOLDER = join(dirname(realpath(__file__)), 'static/uploads/')
+ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'gif'])
+
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 @app.route("/")
@@ -31,7 +40,10 @@ def submit_question():
     submit_data_list = []
     VIEW_NUMBER = "0"
     VOTE_NUMBER = "0"
-    IMG_PATH = ""
+    file = request.files['file']
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     ID = common.ID_generator(table)
     submit_data_list.append(ID)
     timestamp = datetime.datetime.fromtimestamp(time()).strftime('%Y-%m-%d %H:%M:%S')
@@ -40,10 +52,15 @@ def submit_question():
     submit_data_list.append(VOTE_NUMBER)
     submit_data_list.append(request.form["question_title"])
     submit_data_list.append(request.form["message"])
-    submit_data_list.append(IMG_PATH)
+    submit_data_list.append(filename)
     table.append(submit_data_list)
     common.write_table_to_file(table, "data/question.csv")
     return redirect(url_for("index"))
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 @app.route("/answer/<question_id>")
@@ -106,6 +123,12 @@ def update_page(question_id):
 def update_data(question_id):
     question_table = common.get_table_from_file("data/question.csv")
     updated_question = []
+    filename = None
+    if 'file' in request.files:
+        file = request.files['file']
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     for element in question_table:
         if element[0] == question_id:
             updated_question.append(element)
@@ -118,6 +141,8 @@ def update_data(question_id):
     flatten_updated_question.pop(4)
     flatten_updated_question.insert(4, request.form['updated-question_title'])
     flatten_updated_question.insert(5, request.form['updated-message'])
+    if filename is not None:
+        flatten_updated_question.insert(6, filename)
     question_table.append(flatten_updated_question)
     common.write_table_to_file(question_table, "data/question.csv")
     return redirect(url_for('answer', question_id=question_id))

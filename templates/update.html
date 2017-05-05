@@ -18,7 +18,7 @@
     <div class="container">
         <div class="row" style="width:80%; margin:0 auto; margin-top: 20px; margin-bottom: 20px;">
             {% for data in datas %}
-            <form method="POST" action="/submit-update/{{ data[0] }}">
+            <form method="POST" action="/submit-update/{{ data[0] }}" enctype="multipart/form-data">
 
                 <div class="form-group">
                     <label>Question title:</label>
@@ -27,6 +27,10 @@
                 <div class="form-group">
                     <label>Message</label>
                     <textarea class="form-control" rows="3" name="updated-message" required>{{ data[5] }}</textarea>
+                </div>
+                <div class="form-group">
+                        <label>Image</label>
+                        <input class="btn btn-default" type="file" name="file">   
                 </div>
                 <button type="submit" name="update" value="Update" class="btn btn-success">Update</button>
                 <a href="/answer/{{ data[0] }}" class="btn btn-danger">Back</a>

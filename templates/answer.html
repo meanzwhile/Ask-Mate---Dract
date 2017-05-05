@@ -17,8 +17,15 @@
     <body>
     <div class="container">
         <div class="row" style="width:80%; margin:0 auto; margin-top: 20px; margin-bottom: 20px;">
+            <div class="col-md-6">
             <h2> {{ question[4] }} </h2>
             <p> {{ question[5] }} </p>
+            </div>
+
+            <div class="col-md-6"><img style="border: 10px solid #ffffff;" src="/static/uploads/{{ question[6] }}" /></div>
+
+        </div>
+        <div class="row" style="width:80%; margin:0 auto; margin-top: 20px; margin-bottom: 20px;">
             <a href="/update/{{ question[0] }}">
                             <button type="button" name="update-question" class="btn btn-info">Update</button>
                             </a>
